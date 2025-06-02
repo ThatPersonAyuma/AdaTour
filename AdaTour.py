@@ -6,14 +6,7 @@ from Models import *
 from View import auth
 import json
 
-# Start Region of CONSTANT DATA
-CONNECTION_STRING: str
-try:
-    with open('appsettings.json', 'r') as f:
-        config = json.load(f)
-        CONNECTION_STRING = config["ConnectionStrings"]["DefaultConnection"]
-except:
-    raise "Check appsettings.json"
+
 
 users = {}
 
@@ -23,13 +16,14 @@ def clear():
 def FirstStepMenu():
     while True:
         clear()
-        print("===============================================")
-        print("||                 Menu Awal                 ||")
-        print("===============================================")
-        print("1. Login")
-        print("2. Registrasi (bila anda belum mempunyai akun)")
-        print("3. Keluar")
-        print("===============================================")
+        text = "===============================================\n"
+        text+="||                 Menu Awal                 ||\n"
+        text+="===============================================\n"
+        text+="1. Login\n"
+        text+="2. Registtext+=bila anda belum mempunyai aku\n"
+        text+="3. Keluar\n"
+        text+="==============================================="
+        print(text)
         pilihan = input("Masukan inputan (1-3): ")
 
         if pilihan == '1':
@@ -136,9 +130,9 @@ def RegistrasiTourGuide():
 def DashBoard():
     clear()
     while True:
-        print("========================================")
-        print("||              DashBoard             ||")
-        print("========================================")
+        text = "========================================\n"
+        text+="||              DashBoard             ||\n"
+        text+="========================================\n"
         print("1. ")
         print("2. ")
         print("3. ")
@@ -165,4 +159,7 @@ def DashBoard():
 def none():
     print("isi dulu lee")
 
-FirstStepMenu()
+# FirstStepMenu()
+# lib.CreateUserTable()
+# # wisatawan.create_wisatawan(name="Bayu", email="123abc")
+wisatawan.read_wisatawan()
