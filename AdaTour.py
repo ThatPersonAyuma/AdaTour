@@ -1,6 +1,20 @@
 import os
 import time
 
+from Controllers import *
+from Models import *
+from View import auth
+import json
+
+# Start Region of CONSTANT DATA
+CONNECTION_STRING: str
+try:
+    with open('appsettings.json', 'r') as f:
+        config = json.load(f)
+        CONNECTION_STRING = config["ConnectionStrings"]["DefaultConnection"]
+except:
+    raise "Check appsettings.json"
+
 users = {}
 
 def clear():
