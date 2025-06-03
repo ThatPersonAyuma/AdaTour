@@ -54,7 +54,7 @@ def JadwalKerja():
             print("Pilihan tidak valid. Coba lagi.")
             time.sleep(2)
 
-def JadwalKerja():
+def JadwalWisata():
     while True:
         lib.clear_terminal()
         text += "=============================================\n"
