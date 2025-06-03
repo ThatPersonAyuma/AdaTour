@@ -5,21 +5,14 @@ from Models import *
 from View import auth
 import json
 
-# Start Region of CONSTANT DATA
-CONNECTION_STRING: str
-try:
-    with open('appsettings.json', 'r') as f:
-        config = json.load(f)
-        CONNECTION_STRING = config["ConnectionStrings"]["DefaultConnection"]
-except:
-    raise "Check appsettings.json"
+
 
 users = {}
 
 def FirstStepMenu():
     while True:
         lib.clear_terminal()
-        text = "===============================================\n"
+        text ="===============================================\n"
         text+="||                 Menu Awal                 ||\n"
         text+="===============================================\n"
         text+="1. Login\n"
@@ -135,3 +128,40 @@ def RegistrasiTourGuide():
         lib.clear_terminal()
         print("Registrasi berhasil. Silakan login.")
         time.sleep(2)
+
+def DashBoard():
+    lib.clear_terminal()
+    while True:
+        text = "========================================\n"
+        text+="||              DashBoard             ||\n"
+        text+="========================================\n"
+        print("1. ")
+        print("2. ")
+        print("3. ")
+        print("4. Keluar")
+        print("========================================")
+        pilihan = input("Masukan inputan (1-4): ")
+
+        if pilihan == '1':
+            none()
+        elif pilihan == '2':
+            none()
+        elif pilihan == '3':
+            none()
+        elif pilihan == '4':
+            lib.clear_terminal()
+            print("Terima kasih!")
+            time.sleep(2)
+            break
+        else:
+            lib.clear_terminal()
+            print("Pilihan tidak valid. Coba lagi.")
+            time.sleep(2)
+
+def none():
+    print("isi dulu lee")
+
+# FirstStepMenu()
+# lib.CreateUserTable()
+# # wisatawan.create_wisatawan(name="Bayu", email="123abc")
+wisatawan.read_wisatawan()
