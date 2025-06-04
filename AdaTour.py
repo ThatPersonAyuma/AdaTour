@@ -5,8 +5,6 @@ from Models import *
 from View import auth
 import json
 
-
-
 users = {}
 
 def FirstStepMenu():
