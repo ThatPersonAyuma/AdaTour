@@ -51,7 +51,7 @@ def get_role_id(role_name: str):
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute(f"""SELECT * FROM roles
-                            WHERE jenis_role = {role_name}""")
+                            WHERE jenis_role = \"{role_name}\"""")
             rows = cur.fetchall()
             columns = [col.name for col in cur.description]
             index = {name: idx for idx, name in enumerate(columns)}
