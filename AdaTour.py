@@ -1,4 +1,4 @@
-from View import AdminPages, lib
+from View import AdminPages, CustomerPages, PemanduPages, MitraPages,lib
 import time
 from Controllers import *
 from ModelsControll import *
@@ -48,14 +48,18 @@ def login():
                     print("Welcome Admin")
                     input()
                     AdminPages.AdminDasboard(authResult[0])
+                case "Mitra":
+                    print("Welcome Mitra")
+                    input()
+                    MitraPages()
                 case "Pemandu":
                     print("Welcome Pemandu")
                     input()
-                    # DashBoardWisatawan()
+                    PemanduPages()
                 case "Wisatawan":
                     print("Welcome Wisatawan")
                     input()
-                    # DashBoardWisatawan()
+                    CustomerPages()
                 case _:
                     raise "Jenis Role Tidak Diketahui silakan cek database"    
         else:
@@ -117,7 +121,9 @@ def RegistrasiCustomer():
     else:
         role: any# Bikin logika buat cari role di sini
         password = input("Buat password: ")
-
+        nama_lengkap = input("Tambah Nama lengkap: ")
+        kontak = input ("Tambah kontak: ")
+        alamat = input("Tambah Alamat: ")
         # Buat user masukin data dulu, Id_Role nanti ajah
         # Habis buat langsung login ajah
         # user.User.create(
@@ -129,27 +135,9 @@ def RegistrasiCustomer():
         #     alamat = 
         # )
         lib.clear_terminal()
-        print("Registrasi berhasil. Silakan login.")
+        print("Registrasi berhasil!!!")
         time.sleep(2)
-
-def RegistrasiTourGuide():
-    lib.clear_terminal()
-    text = "=========================================\n"
-    text += "||         Registrasi TourGuide        ||\n"
-    text += "========================================="
-    print(text)
-    username = input("Buat username: ")
-
-    if username in users:
-        lib.clear_terminal()
-        print("Username sudah ada")
-        time.sleep(2)
-    else:
-        password = input("Buat password: ")
-        users[username] = password
-        lib.clear_terminal()
-        print("Registrasi berhasil. Silakan login.")
-        time.sleep(2)
+        CustomerPages()
 
 # def DashBoardAdmin():
 #     lib.clear_terminal()
