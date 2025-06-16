@@ -62,4 +62,4 @@ def get_role_id(role_name: str):
                     jenis_role = row[index["jenis_role"]]
                 )
                 for row in rows
-            ]
+            ][0]
