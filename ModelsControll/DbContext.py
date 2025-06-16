@@ -10,6 +10,9 @@ except:
     raise "Check appsettings.json"
 # End Region of CONSTANT DATA
 
+def get_connection():
+    return psycopg2.connect(CONNECTION_STRING)
+
 def CreateUserTable():
     with psycopg2.connect(CONNECTION_STRING) as conn:
             with conn.cursor() as cur:

@@ -1,20 +1,26 @@
-from . import lib
+from View import lib
 import time
 from Controllers import *
-from Models import *
+from ModelsControll import *
 from View import auth
 import json
 
-users = {}
+# Region Of Constanct Data
+USER: user.User
+# End Of Constanct Data
 
-def FirstStepMenu():
+def ChangeUser(user: user.User):
+    global USER
+    USER = user
+
+def FirstStepMenu(): 
     while True:
         lib.clear_terminal()
         text ="===============================================\n"
         text+="||                 Menu Awal                 ||\n"
         text+="===============================================\n"
         text+="1. Login\n"
-        text+="2. Registtext+=bila anda belum mempunyai aku\n"
+        text+="2. Registrasi (bila anda belum mempunyai aku)\n"
         text+="3. Keluar\n"
         text+="==============================================="
         print(text)
@@ -36,38 +42,44 @@ def FirstStepMenu():
 
 def login():
     while True:
+        text=""
         lib.clear_terminal()
-        text += "=============================================="
-        text += "||                Menu Login                ||"
+        text += "==============================================\n"
+        text += "||                Menu Login                ||\n"
         text += "=============================================="
         print(text)
         username = input("Masukan username: ")
         password = input("Masukan password: ")
-
-        if username in users and users[username] == password:
-            lib.clear_terminal()
-            text += "=============================================="
-            text += f"||  Selamat datang di AdaTour, {username}!  ||"
-            text += "=============================================="
-            print(text)
-            time.sleep(2)
-            lib.clear_terminal()
-            lib.DashBoard()
+        authResult = user.User.user_auth(username=username, password=password)
+        print(authResult)
+        if (len(authResult) == 1):
+            ChangeUser(authResult[0])
+            break
         else:
             lib.clear_terminal()
             print("Login gagal. Username atau password salah.")
             time.sleep(2)
 
+    # if username in users and users[username] == password:
+    lib.clear_terminal()
+    text = "==============================================\n"
+    text += f"||  Selamat datang di AdaTour, {username}!  ||\n"
+    text += "=============================================="
+    print(text)
+    time.sleep(2)
+    lib.clear_terminal()
+    DashBoard()
+    
+
 def MenuRegistrasi():
     while True:
         lib.clear_terminal()
-        text += "==============================================="
-        text += "||              Menu Registrasi              ||"
-        text += "==============================================="
-        text += "1. Register untuk pelanggan"
-        text += "2. Register untuk Tourguide"
-        text += "3. Log in (bila anda sudah mempunyai akun)"
-        text += "4. Keluar"
+        text = "===============================================\n"
+        text += "||              Menu Registrasi              ||\n"
+        text += "===============================================\n"
+        text += "1. Register untuk pelanggan\n"
+        text += "2. Log in (bila anda sudah mempunyai akun)\n"
+        text += "3. Keluar\n"
         text += "==============================================="
         print(text)
         pilihan = input("Masukan inputan (1-4): ")
@@ -77,8 +89,6 @@ def MenuRegistrasi():
         elif pilihan == '2':
             RegistrasiTourGuide()
         elif pilihan == '3':
-            FirstStepMenu()
-        elif pilihan == '4':
             lib.clear_terminal()
             print("Terima kasih!")
             time.sleep(2)
@@ -90,28 +100,38 @@ def MenuRegistrasi():
 
 def RegistrasiCustomer():
     lib.clear_terminal()
-    text += "========================================"
-    text += "||        Registrasi Pelanggan        ||"
+    text = "========================================\n"
+    text += "||        Registrasi Pelanggan        ||\n"
     text += "========================================"
     print(text)
     username = input("Buat username: ")
 
-    if username in users:
+    if user.User.IsUserExist(username):
         lib.clear_terminal()
         print("Username sudah ada")
         time.sleep(2)
     else:
+        role: any# Bikin logika buat cari role di sini
         password = input("Buat password: ")
-        users[username] = password
 
+        # Buat user masukin data dulu, Id_Role nanti ajah
+        # Habis buat langsung login ajah
+        # user.User.create(
+        #     id_role = ,
+        #     username = ,
+        #     password = ,
+        #     nama_lengkap = ,
+        #     kontak = ,
+        #     alamat = 
+        # )
         lib.clear_terminal()
         print("Registrasi berhasil. Silakan login.")
         time.sleep(2)
 
 def RegistrasiTourGuide():
     lib.clear_terminal()
-    text += "========================================="
-    text += "||         Registrasi TourGuide        ||"
+    text = "=========================================\n"
+    text += "||         Registrasi TourGuide        ||\n"
     text += "========================================="
     print(text)
     username = input("Buat username: ")
@@ -159,7 +179,6 @@ def DashBoard():
 def none():
     print("isi dulu lee")
 
-# FirstStepMenu()
+FirstStepMenu()
 # lib.CreateUserTable()
 # # wisatawan.create_wisatawan(name="Bayu", email="123abc")
-wisatawan.read_wisatawan()
