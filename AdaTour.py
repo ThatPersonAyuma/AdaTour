@@ -119,21 +119,21 @@ def RegistrasiCustomer():
         print("Username sudah ada")
         time.sleep(2)
     else:
-        role: any# Bikin logika buat cari role di sini
+        role_id = roles.get_role_id("Wisatawan")#any# Bikin logika buat cari role di sini
         password = input("Buat password: ")
         nama_lengkap = input("Tambah Nama lengkap: ")
         kontak = input ("Tambah kontak: ")
         alamat = input("Tambah Alamat: ")
         # Buat user masukin data dulu, Id_Role nanti ajah
         # Habis buat langsung login ajah
-        # user.User.create(
-        #     id_role = ,
-        #     username = ,
-        #     password = ,
-        #     nama_lengkap = ,
-        #     kontak = ,
-        #     alamat = 
-        # )
+        user.User.create(
+            id_role = role_id,
+            username = username,
+            password = password,
+            nama_lengkap = nama_lengkap,
+            kontak = kontak,
+            alamat = alamat 
+        )
         lib.clear_terminal()
         print("Registrasi berhasil!!!")
         time.sleep(2)

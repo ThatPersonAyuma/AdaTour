@@ -46,3 +46,20 @@ class Role:
             with conn.cursor() as cur:
                 cur.execute("DELETE FROM roles WHERE id_role = %s", (id_role,))
                 conn.commit()
+
+def get_role_id(role_name: str):
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(f"""SELECT * FROM roles
+                            WHERE jenis_role = {role_name}""")
+            rows = cur.fetchall()
+            columns = [col.name for col in cur.description]
+            index = {name: idx for idx, name in enumerate(columns)}
+
+            return [
+                Role(
+                    id_role = row[index["id_role"]],
+                    jenis_role = row[index["jenis_role"]]
+                )
+                for row in rows
+            ]

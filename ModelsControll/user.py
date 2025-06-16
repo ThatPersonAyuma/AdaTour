@@ -43,6 +43,76 @@ class User:
                     )
                     for row in rows
                 ]
+                
+    @staticmethod
+    def read_administrator_all():
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute("""SELECT * FROM users u
+                            JOIN roles r ON r.id_role = u.id_role
+                            WHERE r.jenis_role = 'Administrator'""")
+                rows = cur.fetchall()
+                columns = [col.name for col in cur.description]
+                index = {name: idx for idx, name in enumerate(columns)}
+
+                return [
+                    User(
+                        id_user = row[index["id_user"]],
+                        id_role = row[index["id_role"]],
+                        username = row[index["username"]],
+                        password = row[index["password"]],
+                        nama_lengkap = row[index["nama_lengkap"]],
+                        kontak = row[index["kontak"]],
+                        alamat = row[index["alamat"]]
+                    )
+                    for row in rows
+                ]
+    @staticmethod
+    def read_pemandu_all():
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute("""SELECT * FROM users u
+                            JOIN roles r ON r.id_role = u.id_role
+                            WHERE r.jenis_role = 'Pemandu'""")
+                rows = cur.fetchall()
+                columns = [col.name for col in cur.description]
+                index = {name: idx for idx, name in enumerate(columns)}
+
+                return [
+                    User(
+                        id_user = row[index["id_user"]],
+                        id_role = row[index["id_role"]],
+                        username = row[index["username"]],
+                        password = row[index["password"]],
+                        nama_lengkap = row[index["nama_lengkap"]],
+                        kontak = row[index["kontak"]],
+                        alamat = row[index["alamat"]]
+                    )
+                    for row in rows
+                ]            
+    @staticmethod
+    def read_wisatawan_all():
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute("""SELECT * FROM users u
+                            JOIN roles r ON r.id_role = u.id_role
+                            WHERE r.jenis_role = 'Wisatawan'""")
+                rows = cur.fetchall()
+                columns = [col.name for col in cur.description]
+                index = {name: idx for idx, name in enumerate(columns)}
+
+                return [
+                    User(
+                        id_user = row[index["id_user"]],
+                        id_role = row[index["id_role"]],
+                        username = row[index["username"]],
+                        password = row[index["password"]],
+                        nama_lengkap = row[index["nama_lengkap"]],
+                        kontak = row[index["kontak"]],
+                        alamat = row[index["alamat"]]
+                    )
+                    for row in rows
+                ]  
 
     @staticmethod
     def update(id_user, id_role, username, password, nama_lengkap, kontak, alamat):

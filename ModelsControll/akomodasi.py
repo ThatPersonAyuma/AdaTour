@@ -1,11 +1,11 @@
 from .DbContext import get_connection
 
 class Akomodasi:
-    def __init__(self, id_akomodasi=None, nama=None, tipe=None, kapasitas=None, alamat=None, kota=None, kontak=None, email=None, password=None):
+    def __init__(self, id_akomodasi=None, nama=None, bintang=None, tipe=None, kapasitas=None, alamat=None, kota=None, kontak=None, email=None, password=None):
         self.id_akomodasi = id_akomodasi
         self.nama = nama
         self.tipe = tipe
-        self.kapasitas = kapasitas
+        self.bintang = bintang
         self.alamat = alamat
         self.kota = kota
         self.kontak = kontak
@@ -13,13 +13,13 @@ class Akomodasi:
         self.password = password
 
     @staticmethod
-    def create(nama, tipe, kapasitas, alamat, kota, kontak, email, password):
+    def create(nama, tipe,bintang,alamat, kota, kontak, email, password):
         with get_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute("""
-                    INSERT INTO akomodasi (nama, tipe, kapasitas, alamat, kota, kontak, email, password)
+                    INSERT INTO akomodasi (nama, tipe, bintang, alamat, kota, kontak, email, password)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                """, (nama, tipe, kapasitas, alamat, kota, kontak, email, password))
+                """, (nama, tipe, bintang, alamat, kota, kontak, email, password))
                 conn.commit()
 
     @staticmethod
