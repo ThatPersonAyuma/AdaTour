@@ -1,17 +1,9 @@
-from View import lib
+from View import AdminPages, lib
 import time
 from Controllers import *
 from ModelsControll import *
 from View import auth
 import json
-
-# Region Of Constanct Data
-USER: user.User
-# End Of Constanct Data
-
-def ChangeUser(user: user.User):
-    global USER
-    USER = user
 
 def FirstStepMenu(): 
     while True:
@@ -42,33 +34,45 @@ def FirstStepMenu():
 
 def login():
     while True:
-        text=""
         lib.clear_terminal()
-        text += "==============================================\n"
+        text = "==============================================\n"
         text += "||                Menu Login                ||\n"
         text += "=============================================="
         print(text)
         username = input("Masukan username: ")
         password = input("Masukan password: ")
         authResult = user.User.user_auth(username=username, password=password)
-        print(authResult)
         if (len(authResult) == 1):
-            ChangeUser(authResult[0])
-            break
+            match authResult[0].jenis_role :
+                case "Administrator":
+                    print("Welcome Admin")
+                    input()
+                    AdminPages.AdminDasboard(authResult[0])
+                case "Pemandu":
+                    print("Welcome Pemandu")
+                    input()
+                    # DashBoardWisatawan()
+                case "Wisatawan":
+                    print("Welcome Wisatawan")
+                    input()
+                    # DashBoardWisatawan()
+                case _:
+                    raise "Jenis Role Tidak Diketahui silakan cek database"    
         else:
             lib.clear_terminal()
             print("Login gagal. Username atau password salah.")
             time.sleep(2)
 
     # if username in users and users[username] == password:
-    lib.clear_terminal()
-    text = "==============================================\n"
-    text += f"||  Selamat datang di AdaTour, {username}!  ||\n"
-    text += "=============================================="
-    print(text)
-    time.sleep(2)
-    lib.clear_terminal()
-    DashBoard()
+    # lib.clear_terminal()
+    # text = "==============================================\n"
+    # text += f"||  Selamat datang di AdaTour, {username}!  ||\n"
+    # text += "=============================================="
+    # print(text)
+    # time.sleep(2)
+    # lib.clear_terminal()
+    # # DashBoard()
+    # DashBoardAdmin()
     
 
 def MenuRegistrasi():
@@ -147,36 +151,39 @@ def RegistrasiTourGuide():
         print("Registrasi berhasil. Silakan login.")
         time.sleep(2)
 
-def DashBoard():
-    lib.clear_terminal()
-    while True:
-        text = "========================================\n"
-        text+="||              DashBoard             ||\n"
-        text+="========================================\n"
-        print("1. ")
-        print("2. ")
-        print("3. ")
-        print("4. Keluar")
-        print("========================================")
-        pilihan = input("Masukan inputan (1-4): ")
+# def DashBoardAdmin():
+#     lib.clear_terminal()
+#     while True:
+#         text = "========================================\n"
+#         text+="||              DashBoard             ||\n"
+#         text+="========================================\n"
+#         print("1. Kelola Paket")
+#         print("2. Kelola Akun")
+#         print("3. Kelola Mitra")
+#         print("4. Keluar")
+#         print("========================================")
+#         pilihan = input("Masukan inputan (1-4): ")
 
-        if pilihan == '1':
-            none()
-        elif pilihan == '2':
-            none()
-        elif pilihan == '3':
-            none()
-        elif pilihan == '4':
-            lib.clear_terminal()
-            print("Terima kasih!")
-            time.sleep(2)
-            break
-        else:
-            lib.clear_terminal()
-            print("Pilihan tidak valid. Coba lagi.")
-            time.sleep(2)
+#         if pilihan == '1':
+#             none()
+#         elif pilihan == '2':
+#             none()
+#         elif pilihan == '3':
+#             none()
+#         elif pilihan == '4':
+#             lib.clear_terminal()
+#             print("Terima kasih!")
+#             time.sleep(2)
+#             break
+#         else:
+#             lib.clear_terminal()
+#             print("Pilihan tidak valid. Coba lagi.")
+#             time.sleep(2)
+
+
 
 def none():
+    pass
     print("isi dulu lee")
 
 FirstStepMenu()

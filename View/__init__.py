@@ -1,2 +1,3 @@
-__all__ = ["auth"]
-from . import auth
+__all__ = ["auth", "AdminPages", "CustomerPages", "MitraPages", "PemanduPages"]
+from . import auth, AdminPages, CustomerPages, MitraPages, PemanduPages
+    

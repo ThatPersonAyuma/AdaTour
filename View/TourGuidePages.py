@@ -101,6 +101,7 @@ def TanggalKetersediaan():
             print("Pilihan tidak valid. Coba lagi.")
             time.sleep(2)
 
+
 def Pengaturan():
     while True:
         lib.clear_terminal()

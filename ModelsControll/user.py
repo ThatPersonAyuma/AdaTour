@@ -1,9 +1,10 @@
 from .DbContext import get_connection
 
 class User:
-    def __init__(self, id_user=None, id_role=None, username=None, password=None, nama_lengkap=None, kontak=None, alamat=None, nik=None):
+    def __init__(self, id_user=None, id_role=None, username=None, jenis_role=None, password=None, nama_lengkap=None, kontak=None, alamat=None, nik=None):
         self.id_user = id_user
         self.id_role = id_role
+        self.jenis_role = jenis_role
         self.username = username
         self.password = password
         self.nama_lengkap = nama_lengkap
@@ -65,7 +66,8 @@ class User:
     def user_auth(username: str, password: str) -> list:
         with get_connection() as conn:
             with conn.cursor() as cur:
-                cur.execute("""SELECT * FROM users
+                cur.execute("""SELECT * FROM users u
+                                JOIN roles r ON r.id_role = u.id_role
                                 WHERE username = %s
                                     AND \"password\" = %s""", (username, password))
                 rows = cur.fetchall()
@@ -79,6 +81,7 @@ class User:
                     User(
                         id_role = row[index["id_role"]],
                         username = row[index["username"]],
+                        jenis_role = row[index["jenis_role"]],
                         password = row[index["password"]],
                         nama_lengkap = row[index["nama_lengkap"]],
                         kontak = row[index["kontak"]],
