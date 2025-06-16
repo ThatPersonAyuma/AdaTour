@@ -17,8 +17,8 @@ class User:
         with get_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute("""
-                    INSERT INTO users (id_role, username, password, nama_lengkap, kontak, alamat)
-                    VALUES (%s, %s, %s, %s, %s, %s)
+                    INSERT INTO users (id_role, "username", password, nama_lengkap, kontak, alamat)
+                    VALUES (%s, '%s', '%s', '%s', '%s', '%s')
                 """, (id_role, username, password, nama_lengkap, kontak, alamat))
                 conn.commit()
 
